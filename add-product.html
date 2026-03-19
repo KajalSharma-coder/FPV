@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product</title>
+
+  <!-- ✅ ETHERS v5 (STABLE) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <style>
+    body { font-family: Arial; background: #f3f4f6; }
+    .box { width: 350px; margin: 80px auto; background: white; padding: 20px; border-radius: 8px; }
+    input, button { width: 100%; padding: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Add Product</h2>
+
+  <input id="pid" placeholder="Product ID">
+  <input id="name" placeholder="Product Name">
+  <input id="manu" placeholder="Manufacturer">
+  <input id="mfg" placeholder="Mfg Month">
+
+  <button onclick="addProduct()">Save on Blockchain</button>
+</div>
+
+<script>
+const CONTRACT_ADDRESS = "0x5F0E7Bc16AaBEc3fB5e06E338d3aDC5exxxxxxxx";
+const ABI = [
+  "function addProduct(string,string,string,string)"
+];
+
+async function addProduct() {
+  if (!window.ethereum) {
+    alert("Use Desktop Chrome with MetaMask installed");
+    return;
+  }
+
+  const pid = document.getElementById("pid").value;
+  const name = document.getElementById("name").value;
+  const manu = document.getElementById("manu").value;
+  const mfg = document.getElementById("mfg").value;
+
+  if (!pid || !name || !manu || !mfg) {
+    alert("Fill all fields");
+    return;
+  }
+
+  try {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
+    const tx = await contract.addProduct(pid, name, manu, mfg);
+    await tx.wait();
+
+    alert("✅ Product added on Monad!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Blockchain error");
+  }
+}
+</script>
+
+</body>
+</html>
