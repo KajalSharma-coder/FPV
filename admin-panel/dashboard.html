@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body { font-family: Arial; background: #f3f4f6; }
+    .box { width: 300px; margin: 100px auto; background: white; padding: 20px; border-radius: 8px; }
+    button { width: 100%; padding: 12px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Admin Dashboard</h2>
+
+  <button onclick="location.href='add-product.html'">
+    ➕ Add Product
+  </button>
+
+  <button onclick="logout()" style="background:#fee2e2">
+    Logout
+  </button>
+</div>
+
+<script>
+function logout() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
