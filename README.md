@@ -149,8 +149,6 @@ npx react-native run-android
 
 **Errors on Earth**
 
-* Lakshya Bhandari (Team Leader)
-
 ---
 
 ## 📌 Note
